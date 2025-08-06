@@ -1,17 +1,22 @@
 import { View, Text, Pressable } from 'react-native'
 import { Link } from 'expo-router';
-import React from 'react'
+import React, { use } from 'react'
+import { useRouter, useSegments } from 'expo-router';
 
 const FooterNav = () => {
 
     const router = useRouter();
+    const segment = useSegments();
+    const activerouter = segment[0]?? "";
   return (
      <View
      className='w-full flex-row bg-black  p-[30px] justify-evenly ]'>
            
-          <Pressable>
-            
-          </Pressable>
+          <Pressable onPress={() => router.push("/profile")}
+           className='{`${activerouter === "profile" ? "bg-blue-500" : "bg-gray-500"} p-2 rounded-lg`}'>
+            <Text className='text-white text-lg font-semibold'>Profile</Text>
+            </Pressable>
+
             <View>
               <Link
                 href="/home/"
