@@ -1,29 +1,28 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Link, Slot, usePathname } from "expo-router";
+import React from "react";
+import { View } from "react-native";
+import "./../global.css";
+import FooterNav from "@/components/FooterNav";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AuthProvider } from "@/context/AuthContext";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const RootLayout = () => {
+  const pathname = usePathname();
+  console.log("Current Pathname:", pathname);
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  const hideFooter = ["/signup","/login" ].includes(pathname);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+  <AuthProvider>  <SafeAreaView
+      style={{ flex: 1, width: "100%" }}
+      className="bg-[#6488acff] justify-center items-center"
+    >
+      <Slot />
+
+      {!hideFooter && <FooterNav />}
+    </SafeAreaView>
+    </AuthProvider>
   );
-}
+};
+
+export default RootLayout;
