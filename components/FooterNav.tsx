@@ -1,13 +1,17 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import { Link } from 'expo-router';
 import React from 'react'
 
 const FooterNav = () => {
+
+    const router = useRouter();
   return (
      <View
-     className='w-full flex-row bg-black  p-[30px] justify-evenly ]'
+     className='w-full flex-row bg-black  p-[30px] justify-evenly ]'>
            
-          >
+          <Pressable>
+            
+          </Pressable>
             <View>
               <Link
                 href="/home/"
